@@ -119,7 +119,7 @@ main{background:var(--surface)}
 .hero__grid{display:grid;grid-template-columns:auto 1fr;gap:clamp(2rem,2rem + 2vw,4rem);align-items:center}
 .hero__photo{aspect-ratio:3/4;width:clamp(224px,22vw,320px);max-height:56dvh;border-radius:var(--r-lg);background:var(--tint);border:2px dashed var(--line);display:grid;place-items:center;text-align:center;font-size:var(--fs-small);color:var(--ink-muted);font-weight:500;position:relative;overflow:hidden}
 .hero__photo--video{border:0}
-.hero__photo video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero__photo video,.hero__photo .hero__loop{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .hero__headline{font-size:var(--fs-display);font-weight:700;line-height:1.02;letter-spacing:-.025em}
 .hero__headline mark{background:none;color:var(--accent)}
 /* line-by-line mask reveal: hero plays on load, other headlines when they scroll into view */
@@ -249,7 +249,7 @@ main{background:var(--surface)}
 .phone__clip iframe{position:absolute;top:0;left:0;width:340px;height:1100px;border:0;transform-origin:0 0;transform:scale(var(--s,.8)) translateY(calc(-1 * var(--ig-head)))}
 .bento__ig .cs__embed-link{justify-self:center}
 .cs__pager{margin-top:var(--space-section);padding-top:2rem;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-.cs__pager-item{display:flex;flex-direction:column;align-items:flex-start;gap:.5rem}
+.cs__pager-item{display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;gap:.5rem}
 .cs__pager-item--next{grid-column:2;align-items:flex-end;text-align:right}
 .cs__pager p{font-size:var(--fs-small);color:var(--ink-muted)}
 /* back arrow mirrors the forward one: label shifts left, arrow draws in right → left */
@@ -271,7 +271,7 @@ main{background:var(--surface)}
 
 /* ── Touch: 44px hit areas without changing the look ── */
 @media (pointer:coarse){
-  .logo{padding:16px;margin:-16px}
+  .logo::after{inset:-16px -4px}  /* 44px-tall touch target; kept clear of the centred nav */
   .nav a{position:relative}
   .nav a::after{content:"";position:absolute;inset:-4px 0}
 }
@@ -297,7 +297,7 @@ main{background:var(--surface)}
   .logo svg{width:32px}
   .nav{padding:4px}
   .nav ul{gap:0}
-  .nav a{padding:8px 12px;font-size:.875rem}
+  .nav a{padding:8px 16px;font-size:.875rem}
   .also{flex-direction:column;align-items:stretch}
   .also__action,.about__action,.all-link{display:flex;width:100%}
   .also__action .btn,.about__action .btn,.all-link .btn{flex:1 1 auto;justify-content:center}
@@ -306,19 +306,19 @@ main{background:var(--surface)}
   .btn{padding:0 16px;white-space:nowrap}
   .also__action .btn{font-size:.875rem;min-width:0}
   .gif-slot.ph-empty{display:none}
-  .cs__pager{grid-template-columns:1fr;gap:1.5rem}
-  .cs__pager-item--next{grid-column:auto}
+  .cs__pager{gap:.75rem}
   .cs__pager-item{align-items:stretch;text-align:left}
   .cs__pager-item--next{align-items:stretch;text-align:right}
-  .cs__pager .reveal-arrow--back{justify-content:flex-start}
-  .cs__pager .cs__pager-item--next .btn{justify-content:flex-end}
-  .cs__pager .btn__label{transform:none}
+  .cs__pager{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .cs__pager .btn{padding:0 12px;gap:6px;font-size:.875rem}
   #cursor-dot,#cursor-saucer{display:none!important}
 }
 @media (max-width:400px){
+  .cs__pager .btn{font-size:.8125rem}
+}
+@media (max-width:340px){
+  .cs__pager .arrow{display:none}
   .also__action .btn{white-space:normal;height:auto;min-height:48px;padding-block:8px;text-align:center;line-height:1.25}
-  .site-header{justify-content:flex-end}
-  .nav a{padding:8px}
 }
 @media (hover:none){#cursor-dot,#cursor-saucer{display:none!important}}
 
@@ -367,8 +367,8 @@ main{background:var(--surface)}
   <nav class="wrap cs__pager" aria-label="More case studies">
     
     <div class="cs__pager-item cs__pager-item--next">
-      <p>Next</p>
-      <a class="btn btn--ink reveal-arrow" href="../pizza-sonic/index.html" rel="next"><span class="btn__label">Pizza Sonic</span><span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      <p>Pizza Sonic</p>
+      <a class="btn btn--ink reveal-arrow" href="../pizza-sonic/index.html" rel="next" aria-label="Next project: Pizza Sonic"><span class="btn__label">Next project</span><span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
     </div>
   </nav>
 </article>
@@ -420,7 +420,22 @@ main{background:var(--surface)}
 
   /* hero portrait: loop it, unless the visitor asked for reduced motion (then the poster frame stays) */
   const heroVid = document.querySelector('video[data-hero-loop]');
-  if (heroVid && !matchMedia('(prefers-reduced-motion: reduce)').matches) heroVid.play().catch(() => {});
+  if (heroVid) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { heroVid.removeAttribute('autoplay'); heroVid.pause(); }
+    else {
+      heroVid.muted = true; /* iOS checks the property, not only the attribute */
+      /* Some phones refuse to autoplay any video (iOS Low Power Mode, data savers).
+         Then show the same loop as an animated image, which they still play. */
+      const toImage = () => {
+        const img = new Image();
+        img.src = 'assets/video/portrait-loop.webp'; img.width = 480; img.height = 642; img.alt = 'Dinos Kapsalas';
+        img.decoding = 'async'; img.className = 'hero__loop';
+        img.onload = () => heroVid.replaceWith(img); /* swap only once it has loaded; until then the poster stays */
+      };
+      const p = heroVid.play();
+      if (p) p.catch(err => { if (err && err.name === 'NotAllowedError') toImage(); });
+    }
+  }
 
   /* "10 years": roll the number in once, the first time it is on screen */
   const count = document.querySelector('.count');

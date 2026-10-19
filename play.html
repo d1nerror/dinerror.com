@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The Struggle!, Dinos Kapsalas</title>
 <meta name="description" content="The Struggle!, an endless 8-bit side-scrolling shooter by Dinos Kapsalas.">
-<meta property="og:title" content="The Struggle! | Dinos Kapsalas">
+<meta property="og:title" content="The Struggle!, Dinos Kapsalas">
 <meta property="og:description" content="An endless 8-bit side-scrolling shooter by Dinos Kapsalas.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0E120F">
@@ -21,6 +21,7 @@
   --font-pixel:"Press Start 2P",ui-monospace,"Courier New",monospace;
   --space-sm:8px;--space-md:16px;--space-lg:24px;
   --back-h:44px;
+  --ar:1.7778; /* game screen width / height, set by the script */
   color-scheme:dark;
 }
 *,*::before,*::after{box-sizing:border-box}
@@ -30,26 +31,26 @@ body{margin:0;background:var(--color-body-dark);color:var(--color-shade);font-fa
   padding:max(var(--space-sm),env(safe-area-inset-top)) var(--space-md) max(var(--space-sm),env(safe-area-inset-bottom));
   overflow:hidden;-webkit-tap-highlight-color:transparent}
 /* Back to the portfolio: sits above the console, aligned to its left edge */
-.back{align-self:center;width:min(100%,calc((100dvh - 60px - var(--back-h)) * 16 / 9),1000px);display:flex}
+.back{align-self:center;width:min(100%,calc((100dvh - 60px - var(--back-h)) * var(--ar)),1000px);display:flex}
 .back a{display:inline-flex;align-items:center;gap:var(--space-sm);min-height:var(--back-h);padding-inline:4px;
   font-size:10px;letter-spacing:1px;color:var(--color-label);text-decoration:none;transition:color 150ms ease-out}
 .back a:focus-visible{outline:3px dashed var(--color-label);outline-offset:2px}
 @media (hover:hover){.back a:hover{color:var(--color-screen)}}
 .back svg{width:12px;height:12px;flex-shrink:0}
-.console{width:min(100%,calc((100dvh - 60px - var(--back-h)) * 16 / 9),1000px);min-width:min(100%,280px);display:grid;gap:var(--space-md);
+.console{width:min(100%,calc((100dvh - 60px - var(--back-h)) * var(--ar)),1000px);min-width:min(100%,280px);display:grid;gap:var(--space-md);
   background:var(--color-body);padding:var(--space-md);border-radius:12px 12px 40px 12px;box-shadow:inset -4px -4px 0 var(--color-body-dark)}
-.screen{position:relative;aspect-ratio:16/9;max-width:100%;background:var(--color-screen);border-radius:4px;
+.screen{position:relative;aspect-ratio:var(--ar);max-width:100%;container-type:inline-size;background:var(--color-screen);border-radius:4px;
   box-shadow:0 0 0 6px var(--color-shade);overflow:hidden;touch-action:none}
 canvas{width:100%;height:100%;display:block;image-rendering:pixelated}
-.overlay{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:clamp(6px,2vw,16px);
+.overlay{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:clamp(6px,3cqi,16px);
   text-align:center;background:var(--color-screen);padding:var(--space-sm)}
 [hidden]{display:none!important}
-h1{margin:0;font-size:clamp(16px,4.5vw,40px);letter-spacing:2px;text-shadow:3px 3px 0 var(--color-ink)}
-h2{margin:0;font-size:clamp(12px,3vw,26px)}
-.controls{list-style:none;margin:0;padding:0;display:grid;gap:4px;font-size:clamp(6px,1.2vw,11px);line-height:1.6;text-align:left}
+h1{margin:0;font-size:clamp(14px,6.5cqi,40px);letter-spacing:2px;text-shadow:3px 3px 0 var(--color-ink)}
+h2{margin:0;font-size:clamp(12px,5cqi,26px)}
+.controls{list-style:none;margin:0;padding:0;display:grid;gap:4px;font-size:clamp(8px,3.2cqi,12px);line-height:1.6;text-align:left}
 .controls b{color:var(--color-ink)}
-p{margin:0;font-size:clamp(7px,1.3vw,12px);line-height:1.6}
-.btn{font:inherit;font-size:clamp(9px,1.6vw,14px);background:var(--color-shade);color:var(--color-screen);
+p{margin:0;font-size:clamp(8px,3cqi,12px);line-height:1.6}
+.btn{font:inherit;font-size:clamp(10px,3.6cqi,14px);background:var(--color-shade);color:var(--color-screen);
   border:0;padding:10px 18px;cursor:pointer;box-shadow:4px 4px 0 var(--color-ink)}
 .btn:hover{background:var(--color-ink);box-shadow:4px 4px 0 var(--color-shade)}
 .btn:active{transform:translate(4px,4px);box-shadow:none}
@@ -76,9 +77,18 @@ p{margin:0;font-size:clamp(7px,1.3vw,12px);line-height:1.6}
 .deck{display:none;padding:var(--space-sm) var(--space-md) var(--space-md)}
 @media (max-width:820px),(hover:none) and (pointer:coarse){
   .deck{display:grid}
-  .console,.back{width:min(100%,calc((100dvh - 300px - var(--back-h)) * 16 / 9),640px)}
+  .console,.back{width:min(100%,calc((100dvh - 300px - var(--back-h)) * var(--ar)),640px)}
 }
 @media (min-width:560px) and (max-width:820px){.deck{grid-template-areas:"dpad sys ab"}.sys{align-self:end}}
+/* phone on its side: pads either side of the screen instead of below it */
+@media (orientation:landscape) and (max-height:500px) and (hover:none) and (pointer:coarse){
+  body{gap:4px}
+  .console,.back{width:min(100%,calc((100dvh - var(--back-h) - 48px) * var(--ar) + 300px))}
+  .console{grid-template-columns:auto 1fr auto;grid-template-areas:"dpad screen ab" "exit screen start";align-items:center;column-gap:var(--space-lg)}
+  .screen{grid-area:screen}
+  .deck,.sys{display:contents}
+  .sys label:first-child{grid-area:exit}.sys label:last-child{grid-area:start}
+}
 @media (prefers-reduced-motion:reduce){.blink{animation:none}.back a{transition:none}}
 </style>
 </head>
@@ -95,10 +105,10 @@ p{margin:0;font-size:clamp(7px,1.3vw,12px);line-height:1.6}
     <section class="overlay" id="start">
       <h1>THE STRUGGLE!</h1>
       <ul class="controls">
-        <li><b>D-PAD / ARROWS</b> move</li>
-        <li><b>A / SPACE</b> shoot</li>
-        <li><b>HOLD A 2 SEC</b> charge fireball</li>
-        <li><b>START / P</b> pause &nbsp;<b>EXIT / ESC</b> quit</li>
+        <li><b>ARROWS</b> move</li>
+        <li><b>SPACE</b> shoot</li>
+        <li><b>HOLD SPACE</b> fireball</li>
+        <li><b>P</b> pause &nbsp;<b>ESC</b> exit</li>
       </ul>
       <p>Survive.</p>
       <button class="btn" id="startBtn" type="button">START</button>
@@ -113,7 +123,7 @@ p{margin:0;font-size:clamp(7px,1.3vw,12px);line-height:1.6}
 
     <section class="overlay" id="paused" hidden style="background:rgba(212,232,180,.85)">
       <h2 class="blink">PAUSED</h2>
-      <p>Press START</p>
+      <p id="pauseHint">Press P</p>
     </section>
   </div>
 
@@ -138,7 +148,10 @@ p{margin:0;font-size:clamp(7px,1.3vw,12px);line-height:1.6}
 <script>
 (()=>{
 const DARK="#253027",GREEN="#378F46",MID="#8CBF6A",BG="#D4E8B4";
-const W=384,H=216,PX=1/3; // sprites are 48 units with 3-unit pixels → 16 game px
+const PX=1/3; // sprites are 48 units with 3-unit pixels → 16 game px
+// Logical screen: wide on desktop; on phones a smaller field so everything is drawn bigger.
+let W=384,H=216;const TOP=36; // HUD height; play area starts below it
+const TOUCH=matchMedia("(max-width:820px),(hover:none) and (pointer:coarse)");
 const S={
  ship:[[15,6,18,3,0],[12,9,3,3,0],[33,9,3,3,0],[9,12,3,24,0],[24,12,3,18,1],[36,12,3,24,0],[21,18,3,12,1],[27,18,6,3,1],[18,21,3,9,1],[27,21,3,9,1],[30,21,3,3,0],[15,24,3,6,1],[30,24,3,6,1],[6,30,3,6,0],[12,30,24,9,0],[39,30,3,6,0],[42,30,3,6,1]],
  e1:[[27,15,3,6,0],[21,18,6,3,0],[15,21,3,6,0],[18,21,6,3,1],[24,21,3,9,0],[18,24,6,3,0],[21,27,3,3,0],[27,27,3,6,0]],
@@ -152,12 +165,30 @@ function bake(rects,rot,flash){const c=document.createElement("canvas");c.width=
   if(rot){[rx,ry,rw,rh]=[16-ry-rh,rx,rh,rw];} // rotate 90° clockwise → nose faces right
   g.fillRect(rx,ry,rw,rh);}
  return c;}
+// rocks: 1 game px per cell. '#' dark outline/craters, 'g' green body, 'm' light rim
+const ROCK={"small":["....#####.....","..##mmmgg##...",".#mmggggggg#..",".#mgg##gggggg#","#mgg##mgggggg#","#mggggmgggggg#","#mgggggggg##g#","#ggggggggg##m#","#gg#ggggggmmg#",".#g#mgggggggg#",".#ggggggggg##.","..##ggggg###..","....#####.....",".............."],"big":["........###.............","......##mmm##...........","......#mgggmm##.........",".....#mggggggmm##.......","....#mggggggggggg##.....","...#mgggggggggggggg##...","..#mggggggggg###mgggg#..",".#mgggggggggg###mgggg##.",".#mgggggggggg###mggggg##",".#mggggggggggmmmggggggg#",".#mggggggg#mgggggggggg##","..#mggggggmgggggggggggg#","..#mgggggggggggggggggg##","...#mg##mgggggggggggg##.","...#mg##mggggggggggg##..","...#ggmmggggggg##mggg#..","...#ggggggggggg##mgg#...","...#gggggggggggmmgg##...","...#gggggggggggggggg#...","...#ggggggggggg#g#g##...","....#ggggggggg#####.....",".....#g#ggg#g#..........","......###g###...........","........###............."]};
+function bakeRock(rows,flash){const n=rows.length,c=document.createElement("canvas");c.width=c.height=n;const g=c.getContext("2d");
+ rows.forEach((row,y)=>[...row].forEach((ch,x)=>{if(ch===".")return;
+  g.fillStyle=flash?(ch==="#"?MID:BG):(ch==="#"?DARK:ch==="g"?GREEN:MID);g.fillRect(x,y,1,1);}));return c;}
+const RK={small:bakeRock(ROCK.small),big:bakeRock(ROCK.big),smallf:bakeRock(ROCK.small,1),bigf:bakeRock(ROCK.big,1)};
 const SP={ship:bake(S.ship,0),e1:bake(S.e1),e2:bake(S.e2),e3:bake(S.e3),e1f:bake(S.e1,0,1),e2f:bake(S.e2,0,1),e3f:bake(S.e3,0,1)};
 
-const cv=document.getElementById("game"),ctx=cv.getContext("2d");ctx.imageSmoothingEnabled=false;
+const cv=document.getElementById("game"),ctx=cv.getContext("2d");
+// Pick the field size, then size the canvas backing store to a whole multiple of it that matches the
+// screen's device pixels, so every game pixel lands on whole device pixels (no blur on bars or text).
+function fit(){
+ if(state==="menu"||state==="over"){
+  if(TOUCH.matches&&innerHeight>innerWidth){W=192;H=192;}
+  else if(TOUCH.matches){W=256;H=144;}
+  else{W=384;H=216;}
+  document.documentElement.style.setProperty("--ar",W/H);}
+ const css=cv.getBoundingClientRect().width||W,n=Math.max(1,Math.round(css*(devicePixelRatio||1)/W));
+ if(cv.width!==W*n||cv.height!==H*n){cv.width=W*n;cv.height=H*n;}
+ ctx.setTransform(n,0,0,n,0,0);ctx.imageSmoothingEnabled=false;}
 const $=id=>document.getElementById(id);
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 let best=0;try{best=+localStorage.getItem("struggle-best")||0}catch(e){}
+$("pauseHint").textContent=TOUCH.matches&&!matchMedia("(any-pointer:fine)").matches?"Press START":"Press P";
 $("bestStart").textContent=best?"HI-SCORE "+String(best).padStart(6,"0"):"";
 
 const keys={};
@@ -182,9 +213,10 @@ let state="menu",P,bullets,eb,enemies,parts,pickups,stars,score,t,spawnT,hold,wa
 const ROCK_CYCLE=2400,ROCK_START=900,ROCK_LEN=600; // wave every 40s, lasts 10s
 const rockWave=()=>{const c=t%ROCK_CYCLE;return c>=ROCK_START&&c<ROCK_START+ROCK_LEN;};
 function reset(){
- P={x:30,y:H/2,w:16,h:16,hp:3,inv:0,cool:0};
+ fit();
+ P={x:Math.min(30,W/8|0),y:(TOP+H)/2|0,w:16,h:16,hp:3,inv:0,cool:0};
  bullets=[];eb=[];enemies=[];parts=[];pickups=[];score=0;t=0;spawnT=1;hold=0;wasFire=false;shake=0;level=1;rocks=[];rockT=0;
- stars=Array.from({length:40},()=>({x:Math.random()*W,y:26+Math.random()*(H-26),s:Math.random()<.3?2:1}));
+ stars=Array.from({length:40},()=>({x:Math.random()*W,y:TOP+Math.random()*(H-TOP),s:Math.random()<.3?2:1}));
 }
 reset();
 
@@ -193,7 +225,7 @@ $("startBtn").onclick=start;$("againBtn").onclick=start;
 function togglePause(){state=state==="play"?"pause":"play";$("paused").hidden=state!=="pause";}
 
 function spawn(){
- const r=Math.random(),y=34+Math.random()*(H-58),sp=1+level*.12;
+ const r=Math.random(),y=TOP+8+Math.random()*(H-TOP-32),sp=1+level*.12;
  let e;
  if(level>=3&&r<.18) e={type:"e3",hp:6,spd:.35*sp,pts:300,fire:2};
  else if(level>=2&&r<.5) e={type:"e2",hp:2,spd:.9*sp,pts:150,fire:2.5,phase:Math.random()*6,amp:18+Math.random()*20};
@@ -214,31 +246,31 @@ function update(){
  const sp=2;
  if(keys.ArrowUp||keys.KeyW)P.y-=sp;if(keys.ArrowDown||keys.KeyS)P.y+=sp;
  if(keys.ArrowLeft||keys.KeyA)P.x-=sp;if(keys.ArrowRight||keys.KeyD)P.x+=sp;
- P.x=clamp(P.x,0,W-16);P.y=clamp(P.y,26,H-16);
+ P.x=clamp(P.x,0,W-16);P.y=clamp(P.y,TOP,H-16);
  const fire=keys.Space||keys.KeyJ;
  if(P.cool>0)P.cool--;
  if(fire){hold++;if(!wasFire||P.cool===0&&hold<20){if(P.cool===0){bullets.push({x:P.x+15,y:P.y+10,w:6,h:2,vx:5,dmg:1});P.cool=10;}}}
  else if(wasFire){ if(hold>=CHARGE)bullets.push({x:P.x+14,y:P.y+3,w:18,h:16,vx:4,dmg:8,big:1,pierce:1}); hold=0;}
  wasFire=fire;
  if(P.inv>0)P.inv--;
- for(const s of stars){s.x-=s.s*.6;if(s.x<0){s.x=W;s.y=26+Math.random()*(H-26);}}
+ for(const s of stars){s.x-=s.s*.6;if(s.x<0){s.x=W;s.y=TOP+Math.random()*(H-TOP);}}
  const wave=rockWave();
  if(--spawnT<=0){spawn();spawnT=Math.max(18,90-level*8)*(.6+Math.random()*.8)*(wave?2.5:1);}
  if(wave&&--rockT<=0){rockT=40+Math.random()*40;
   const big=Math.random()<.4,s=big?24:14;
-  rocks.push({x:W,y:30+Math.random()*(H-36-s),w:s,h:s,hp:big?16:8,pts:big?400:150,
-   vx:.6+Math.random()*.8,vy:(Math.random()-.5)*.4,flash:0,seed:Math.random()*1e4|0});}
- for(const r of rocks){r.x-=r.vx;r.y+=r.vy;if(r.y<26||r.y>H-r.h)r.vy*=-1;if(r.flash)r.flash--;
+  rocks.push({x:W,y:TOP+4+Math.random()*(H-TOP-10-s),w:s,h:s,hp:big?16:8,pts:big?400:150,big,
+   vx:.6+Math.random()*.8,vy:(Math.random()-.5)*.4,flash:0,fx:Math.random()<.5,fy:Math.random()<.5});}
+ for(const r of rocks){r.x-=r.vx;r.y+=r.vy;if(r.y<TOP||r.y>H-r.h)r.vy*=-1;if(r.flash)r.flash--;
   for(const b of bullets)if(!b.dead&&hit(b,r)){r.hp-=b.dmg;r.flash=3;if(b.big)b.dmg-=4;else b.dead=1;if(b.dmg<=0)b.dead=1;}
   for(const b of eb)if(hit(b,r))b.dead=1;
   if(r.hp<=0){r.dead=1;score+=r.pts*level;boom(r.x+r.w/2,r.y+r.h/2,16);}
   else if(hit({x:P.x+3,y:P.y+3,w:10,h:10},r)){r.dead=1;boom(r.x+r.w/2,r.y+r.h/2,10);hurt();}}
  rocks=rocks.filter(r=>!r.dead&&r.x>-r.w);
  for(const b of bullets)b.x+=b.vx;bullets=bullets.filter(b=>b.x<W+20);
- for(const b of eb){b.x+=b.vx;b.y+=b.vy;}eb=eb.filter(b=>b.x>-8&&b.y>20&&b.y<H+8);
+ for(const b of eb){b.x+=b.vx;b.y+=b.vy;}eb=eb.filter(b=>b.x>-8&&b.y>TOP-6&&b.y<H+8);
  for(const e of enemies){
   e.x-=e.spd;if(e.flash)e.flash--;
-  if(e.type==="e2"){e.phase+=.05;e.y=clamp(e.by+Math.sin(e.phase)*e.amp,28,H-14);}
+  if(e.type==="e2"){e.phase+=.05;e.y=clamp(e.by+Math.sin(e.phase)*e.amp,TOP+2,H-14);}
   if(e.type==="e3")e.y+=Math.sign(P.y-e.y)*.25;
   if(e.fire&&e.x<W-10&&(e.ft-=1/60)<=0){e.ft=e.fire/(1+level*.08);
    const dx=P.x-e.x,dy=P.y-e.y,d=Math.hypot(dx,dy)||1,v=1.6;
@@ -257,9 +289,9 @@ function update(){
 }
 
 function hud(){
- ctx.fillStyle=BG;ctx.fillRect(0,0,W,24);
- // health frame (top of Health_Power_bar.svg), scaled 1/3 then ×1.5
- const k=.5,ox=6,oy=2;const r=(x,y,w,h,c)=>{ctx.fillStyle=c;ctx.fillRect(ox+x*k,oy+y*k,w*k,h*k)};
+ ctx.fillStyle=BG;ctx.fillRect(0,0,W,TOP-2);ctx.fillStyle=MID;ctx.fillRect(0,TOP-2,W,1);
+ // health frame (top of Health_Power_bar.svg): each 3-unit artwork pixel = 2 game px, so edges sit on the pixel grid
+ const k=2/3,ox=2,oy=-2;const r=(x,y,w,h,c)=>{ctx.fillStyle=c;ctx.fillRect(ox+x*k,oy+y*k,w*k,h*k)};
  r(9,9,30,3,DARK);r(6,12,3,15,DARK);r(39,12,3,15,DARK);r(9,27,30,3,DARK);
  [12,21,30].forEach((x,i)=>{r(x,15,6,9,i<P.hp?GREEN:MID)});
  // power bar (bottom of svg), fill grows with charge
@@ -267,9 +299,9 @@ function hud(){
  r(6,36,3,9,DARK);r(33,36,3,9,DARK);r(36,39,3,6,DARK);r(9,42,24,3,DARK);r(39,42,3,3,DARK);r(9,36,24,6,MID);
  if(ch>0){ctx.fillStyle=ch>=1&&(t>>3)%2?DARK:GREEN;ctx.fillRect(ox+9*k,oy+36*k,Math.round(24*k*ch),6*k);}
  ctx.fillStyle=DARK;ctx.font="8px 'Press Start 2P', monospace";ctx.textBaseline="top";
- ctx.textAlign="left";ctx.fillText("LV"+level,34,8);
- ctx.textAlign="right";ctx.fillText("HI "+String(Math.max(best,score)).padStart(6,"0"),W-6,4);
- ctx.fillText(String(score).padStart(6,"0"),W-6,14);
+ ctx.textAlign="left";ctx.fillText("LV"+level,36,8);
+ ctx.textAlign="right";ctx.fillText("HI "+String(Math.max(best,score)).padStart(6,"0"),W-4,6);
+ ctx.fillText(String(score).padStart(6,"0"),W-4,18);
 }
 // pixel fireball: rows of [offsetX, width] on a 2px grid, head on the right, no outline
 const FIRE=[[6,3],[3,6],[1,8],[0,9],[1,8],[3,6],[6,3]];
@@ -280,13 +312,10 @@ function fireball(b){const x=b.x|0,y=b.y|0,f=(t>>2)%2;
  ctx.fillStyle=MID;for(let i=0;i<4;i++){const ty=y+2+((t*3+i*5)%10),tx=x-4-i*4-((t+i)%3)*2;ctx.fillRect(tx,ty,2,2);}}
 function draw(){
  ctx.save();ctx.fillStyle=BG;ctx.fillRect(0,0,W,H);
- if(shake)ctx.translate((Math.random()-.5)*4,(Math.random()-.5)*4);
+ if(shake)ctx.translate(Math.round((Math.random()-.5)*4),Math.round((Math.random()-.5)*4));
  ctx.fillStyle=MID;for(const s of stars)ctx.fillRect(s.x|0,s.y|0,s.s,1);
- for(const r of rocks){const x=r.x|0,y=r.y|0,s=r.w,c=s/8|0;
-  ctx.fillStyle=r.flash?MID:DARK; // chunky octagon rock
-  ctx.fillRect(x+c,y,s-2*c,s);ctx.fillRect(x,y+c,s,s-2*c);
-  ctx.fillStyle=r.flash?BG:GREEN;let n=r.seed;
-  for(let i=0;i<s/5;i++){n=(n*9301+49297)%233280;const px=x+c+(n%(s-2*c-3)),py=y+c+((n>>4)%(s-2*c-3));ctx.fillRect(px,py,3,3);}}
+ for(const r of rocks){const img=RK[(r.big?"big":"small")+(r.flash?"f":"")],x=r.x|0,y=r.y|0,s=r.w;
+  ctx.save();ctx.translate(x+(r.fx?s:0),y+(r.fy?s:0));ctx.scale(r.fx?-1:1,r.fy?-1:1);ctx.drawImage(img,0,0);ctx.restore();}
  for(const p of pickups){ctx.fillStyle=GREEN;ctx.fillRect(p.x|0,p.y+2|0,8,4);ctx.fillRect(p.x+2|0,p.y|0,4,8);}
  for(const e of enemies)ctx.drawImage(SP[e.type+(e.flash?"f":"")],e.x|0,(e.y|0)-2);
  for(const b of bullets){ctx.fillStyle=DARK;if(b.big)fireball(b);else ctx.fillRect(b.x|0,b.y|0,b.w,b.h);}
@@ -296,6 +325,7 @@ function draw(){
  ctx.fillStyle=DARK;for(const p of parts)ctx.fillRect(p.x|0,p.y|0,2,2);
  ctx.restore();hud();
 }
+addEventListener("resize",fit);
 let acc=0,last=performance.now();
 function loop(now){acc+=Math.min(100,now-last);last=now;
  while(acc>=1000/60){if(state==="play")update();acc-=1000/60;}
