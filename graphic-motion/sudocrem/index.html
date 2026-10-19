@@ -68,6 +68,10 @@ ul{list-style:none}
 .nav{position:relative;isolation:isolate;overflow:hidden;background:var(--ink);border-radius:var(--r-pill);padding:8px;box-shadow:0 8px 28px -14px rgba(37,48,39,.65);animation:nav-in .75s var(--ease-out) .1s both}
 @keyframes nav-in{from{transform:translateY(-160%)}to{transform:none}}
 .nav-still .nav{animation:none}  /* the nav drops in once per visit, not on every page */
+/* the shadow follows the page colour: it fades out as the page goes dark and returns once it has landed */
+.nav{transition:box-shadow .7s cubic-bezier(.45,0,.25,1)}
+.nav.nav--hush,html[data-veil="ink"] .nav{box-shadow:0 8px 28px -14px rgba(37,48,39,0)}
+html[data-veil="ink"].veil-done .nav{box-shadow:0 8px 28px -14px rgba(37,48,39,.65)}
 .nav__glow{position:absolute;z-index:0;left:0;top:0;pointer-events:none;width:128px;height:128px;margin:-64px 0 0 -64px;border-radius:50%;background:radial-gradient(circle,rgba(141,239,134,.4) 0%,rgba(141,239,134,0) 68%);opacity:0;transition:opacity var(--dur)}
 @media (hover:hover){.nav:hover .nav__glow{opacity:1}}
 /* liquid highlight: a goo filter melts the two blobs together as the active link changes */
@@ -116,7 +120,10 @@ ul{list-style:none}
 @view-transition{navigation:auto}
 .nav{view-transition-name:site-nav}
 ::view-transition-old(root),::view-transition-new(root){animation-duration:.3s;animation-timing-function:var(--ease-out)}
-::view-transition-old(site-nav),::view-transition-new(site-nav){animation:none;mix-blend-mode:normal}
+/* show the nav once: old and new snapshots both visible would stack two shadows */
+::view-transition-group(site-nav){animation-duration:0s}
+::view-transition-old(site-nav){display:none}
+::view-transition-new(site-nav){animation:none;mix-blend-mode:normal}
 
 /* Page change veil: while the drop pours, the page fades into the next page's colour;
    the next page starts under the same colour and fades in, so there is no flash between them */
@@ -399,6 +406,8 @@ main{background:var(--surface)}
 <footer class="site-footer"><div class="wrap"><span>© <span id="yr">2026</span> Dinos Kapsalas</span><a class="play-link" href="../../play.html">Beat my high score</a></div></footer>
 <script>
 (() => {
+  /* arriving under the dark veil: bring the nav's shadow back once the page has faded in */
+  if (document.documentElement.dataset.veil === 'ink') setTimeout(() => document.documentElement.classList.add('veil-done'), 520);
   /* case study: when the text column is taller than the screen, pin it by its
      bottom edge (negative sticky top) so every line can be read */
   const side = document.querySelector('.cs__side');
@@ -475,7 +484,7 @@ main{background:var(--surface)}
     if (head && tail && bridge) {
       sync(true);
       addEventListener('resize', () => sync(true));
-      addEventListener('pageshow', e => { if (e.persisted) { busy = false; document.querySelector('.veil')?.classList.remove('is-on'); sync(true); } });  /* back button */
+      addEventListener('pageshow', e => { if (e.persisted) { busy = false; document.querySelector('.veil')?.classList.remove('is-on'); nav.classList.remove('nav--hush'); sync(true); } });  /* back button */
       links.forEach(a => a.addEventListener('click', e => {
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;      /* new tab: leave it to the browser */
         const from = current();
@@ -497,6 +506,7 @@ main{background:var(--surface)}
           const veil = document.querySelector('.veil'), tone = /#contact$/.test(a.href) ? 'ink' : 'surface';
           if (veil) {
             veil.style.background = `var(--${tone})`;
+            nav.classList.toggle('nav--hush', tone === 'ink');
             requestAnimationFrame(() => veil.classList.add('is-on'));   /* fades at the same time as the drop */
             try { sessionStorage.setItem('veil', tone); } catch (_) {}
           }
