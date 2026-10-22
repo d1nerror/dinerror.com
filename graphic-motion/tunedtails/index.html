@@ -151,7 +151,7 @@ main{background:var(--surface)}
 .hero__headline mark{background:none;color:var(--accent)}
 /* line-by-line mask reveal: hero plays on load, other headlines when they scroll into view */
 .line{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
-.line>span{display:block}
+.line>span{display:block;text-wrap:balance}
 .js .reveal .line>span{transform:translateY(105%)}
 .js .reveal.is-in .line>span{animation:line-up .9s var(--ease-out) forwards}
 .reveal.is-in .line:nth-child(1)>span{animation-delay:var(--d,.2s)}
@@ -195,7 +195,7 @@ main{background:var(--surface)}
 .about__grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(2rem,1rem + 4vw,4rem);align-items:start}
 .about__headline{font-size:var(--fs-h2);font-weight:700;line-height:1.1;letter-spacing:-.025em;text-wrap:balance}
 .about__headline .accent{color:var(--accent)}
-.about__body{font-size:var(--fs-body);color:var(--on-dark-dim);max-width:52ch;text-wrap:pretty}
+.about__body{font-size:var(--fs-body);color:var(--on-dark-dim);max-width:52ch;text-wrap:balance}
 .about__body+.about__body{margin-top:1rem}
 .about__body strong{color:var(--on-dark);font-weight:600}
 /* 24px between button and GIF: the button keeps its width while animating, so the GIF never moves */
@@ -248,7 +248,7 @@ main{background:var(--surface)}
 .ph{display:inline-block;max-width:100%;text-wrap:balance}
 .cs__punch{font-size:clamp(1.25rem,1rem + .8vw,1.5rem);font-weight:700;line-height:1.2;letter-spacing:-.015em;text-wrap:balance}
 .cs__story p+p{margin-top:.5rem}
-.cs__story p:not(.cs__punch){font-size:.9375rem;color:var(--ink-muted);max-width:52ch;text-wrap:pretty}
+.cs__story p:not(.cs__punch){font-size:.9375rem;color:var(--ink-muted);max-width:52ch;text-wrap:balance}
 .cs__media{display:grid;gap:1rem}
 .cs__shot{border-radius:var(--r-lg);overflow:hidden;background:var(--tint);box-shadow:0 1px 0 var(--line),0 16px 40px -28px rgba(37,48,39,.5)}
 .cs__shot img{width:100%}
@@ -392,7 +392,7 @@ main{background:var(--surface)}
       <a class="cs__back" href="../../graphic-motion.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> All graphic &amp; motion</a>
       <h1 class="cs__title">Tuned Tails <span>Logo and brand identity</span></h1>
       <dl class="cs__facts"><div><dt>Role:</dt> <dd>Brand designer</dd></div></dl>
-      <div class="cs__story"><section><p class="cs__punch">A new dog trainer, a brand from scratch.</p><p>A dog trainer starting out asked me for his logo and the brand around it.</p></section></div>
+      <div class="cs__story"><section><p class="cs__punch">A new dog trainer, a brand from scratch.</p><p>A dog trainer starting out asked me for his logo and the brand around it.</p></section></div>
     </div>
     <div class="cs__media"><figure class="cs__shot"><img src="01.webp" width="1600" height="900" alt="Tuned Tails Dog Training logo on a tote bag" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('ph-empty');this.parentNode.dataset.ph='Drop 01.webp in this folder';this.replaceWith('Drop 01.webp in this folder')"></figure><figure class="cs__shot"><img src="02.webp" width="1600" height="900" alt="Tuned Tails business cards, front and back, on moss" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('ph-empty');this.parentNode.dataset.ph='Drop 02.webp in this folder';this.replaceWith('Drop 02.webp in this folder')"></figure></div>
   </div>

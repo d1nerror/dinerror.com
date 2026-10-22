@@ -151,7 +151,7 @@ main{background:var(--surface)}
 .hero__headline mark{background:none;color:var(--accent)}
 /* line-by-line mask reveal: hero plays on load, other headlines when they scroll into view */
 .line{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
-.line>span{display:block}
+.line>span{display:block;text-wrap:balance}
 .js .reveal .line>span{transform:translateY(105%)}
 .js .reveal.is-in .line>span{animation:line-up .9s var(--ease-out) forwards}
 .reveal.is-in .line:nth-child(1)>span{animation-delay:var(--d,.2s)}
@@ -195,7 +195,7 @@ main{background:var(--surface)}
 .about__grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(2rem,1rem + 4vw,4rem);align-items:start}
 .about__headline{font-size:var(--fs-h2);font-weight:700;line-height:1.1;letter-spacing:-.025em;text-wrap:balance}
 .about__headline .accent{color:var(--accent)}
-.about__body{font-size:var(--fs-body);color:var(--on-dark-dim);max-width:52ch;text-wrap:pretty}
+.about__body{font-size:var(--fs-body);color:var(--on-dark-dim);max-width:52ch;text-wrap:balance}
 .about__body+.about__body{margin-top:1rem}
 .about__body strong{color:var(--on-dark);font-weight:600}
 /* 24px between button and GIF: the button keeps its width while animating, so the GIF never moves */
@@ -248,7 +248,7 @@ main{background:var(--surface)}
 .ph{display:inline-block;max-width:100%;text-wrap:balance}
 .cs__punch{font-size:clamp(1.25rem,1rem + .8vw,1.5rem);font-weight:700;line-height:1.2;letter-spacing:-.015em;text-wrap:balance}
 .cs__story p+p{margin-top:.5rem}
-.cs__story p:not(.cs__punch){font-size:.9375rem;color:var(--ink-muted);max-width:52ch;text-wrap:pretty}
+.cs__story p:not(.cs__punch){font-size:.9375rem;color:var(--ink-muted);max-width:52ch;text-wrap:balance}
 .cs__media{display:grid;gap:1rem}
 .cs__shot{border-radius:var(--r-lg);overflow:hidden;background:var(--tint);box-shadow:0 1px 0 var(--line),0 16px 40px -28px rgba(37,48,39,.5)}
 .cs__shot img{width:100%}
@@ -392,7 +392,7 @@ main{background:var(--surface)}
       <a class="cs__back" href="../../projects.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> All projects</a>
       <h1 class="cs__title">Krystallis <span>Website</span></h1>
       <dl class="cs__facts"><div><dt>Role:</dt> <dd>UI/UX designer</dd></div><div><dt>Scope:</dt> <dd><span class="ph">UX strategy, information architecture,</span> <span class="ph">visual identity, wireframes (lo‑fi and hi‑fi), responsive design,</span> <span class="ph">interactive prototype</span></dd></div></dl>
-      <div class="cs__story"><section><h2>Problem</h2><p class="cs__punch"><span class="s">The menu was buried.</span><span class="s">The hours kept moving.</span></p><p>People come to book a table or check the menu. The menu hid in the Contact page, hours were split between the footer and the Events page, and there was no English version for tourists.</p><p>Visitors gave up before finding what they came for.</p></section><section><h2>Solution</h2><p class="cs__punch"><span class="s">Four pages.</span><span class="s">Everything else in the footer.</span></p><p>The site now has four pages: Menu, Our story, Photos and Contact. The Greek/English switch is in the header. Hours, phones, address and the map link sit in one footer on every page, so they’re never more than a scroll away.</p><p>On desktop the menu opens like a real paper menu. On mobile it becomes a list you can filter by category tabs. Events no longer have their own page: reservations, amenities and the map all live in Contact, which answers “can we bring a group?” in one place.</p><p><span class="ph">The look borrows from the taverna itself:</span> <span class="ph">dark wood, cream linen, a deep red, and a 1949 photo</span> <span class="ph">of the original building.</span></p></section><section><h2>Result</h2><p class="cs__punch">Land, check the menu, book.</p><p>No hunting for buried details. No confusion between pages that should be one.</p></section></div>
+      <div class="cs__story"><section><h2>Problem</h2><p class="cs__punch"><span class="s">The menu was buried.</span><span class="s">The hours kept moving.</span></p><p>People come to book a table or check the menu. The menu hid in the Contact page, hours were split between the footer and the Events page, and there was no English version for tourists.</p><p>Visitors gave up before finding what they came for.</p></section><section><h2>Solution</h2><p class="cs__punch"><span class="s">Four pages.</span><span class="s">Everything else in the footer.</span></p><p>The site now has four pages: Menu, Our story, Photos and Contact. The Greek/English switch is in the header. Hours, phones, address and the map link sit in one footer on every page, so they’re never more than a scroll away.</p><p>On desktop the menu opens like a real paper menu. On mobile it becomes a list you can filter by category tabs. Events no longer have their own page: reservations, amenities and the map all live in Contact, which answers “can we bring a group?” in one place.</p><p><span class="ph">The look borrows from the taverna itself:</span> <span class="ph">dark wood, cream linen, a deep red, and a 1949 photo</span> <span class="ph">of the original building.</span></p></section><section><h2>Result</h2><p class="cs__punch">Land, check the menu, book.</p><p>No hunting for buried details. No confusion between pages that should be one.</p></section></div>
     </div>
     <div class="cs__media"><figure class="cs__shot"><img src="01.webp" width="1600" height="844" alt="Old and new mobile site side by side" onerror="this.parentNode.classList.add('ph-empty');this.parentNode.dataset.ph='Drop 01.webp in this folder';this.replaceWith('Drop 01.webp in this folder')"></figure><figure class="cs__shot cs__video"><video src="02.mp4" poster="02-poster.webp" width="1600" height="900" muted loop playsinline preload="metadata" aria-label="Walkthrough of the redesigned Krystallis website" data-autoloop></video></figure><figure class="cs__shot"><img src="03.webp" width="1600" height="1484" alt="Mobile screens: menu, homepage, our story, contact, menu list and photos" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('ph-empty');this.parentNode.dataset.ph='Drop 03.webp in this folder';this.replaceWith('Drop 03.webp in this folder')"></figure><script>document.querySelectorAll("video[data-autoloop]").forEach(v=>{if(matchMedia("(prefers-reduced-motion: reduce)").matches){v.controls=true;return}new IntersectionObserver(([e])=>e.isIntersecting?v.play().catch(()=>{v.controls=true}):v.pause()).observe(v)})</script></div>
   </div>

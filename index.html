@@ -151,7 +151,7 @@ main{background:var(--surface)}
 .hero__headline mark{background:none;color:var(--accent)}
 /* line-by-line mask reveal: hero plays on load, other headlines when they scroll into view */
 .line{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
-.line>span{display:block}
+.line>span{display:block;text-wrap:balance}
 .js .reveal .line>span{transform:translateY(105%)}
 .js .reveal.is-in .line>span{animation:line-up .9s var(--ease-out) forwards}
 .reveal.is-in .line:nth-child(1)>span{animation-delay:var(--d,.2s)}
@@ -195,7 +195,7 @@ main{background:var(--surface)}
 .about__grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(2rem,1rem + 4vw,4rem);align-items:start}
 .about__headline{font-size:var(--fs-h2);font-weight:700;line-height:1.1;letter-spacing:-.025em;text-wrap:balance}
 .about__headline .accent{color:var(--accent)}
-.about__body{font-size:var(--fs-body);color:var(--on-dark-dim);max-width:52ch;text-wrap:pretty}
+.about__body{font-size:var(--fs-body);color:var(--on-dark-dim);max-width:52ch;text-wrap:balance}
 .about__body+.about__body{margin-top:1rem}
 .about__body strong{color:var(--on-dark);font-weight:600}
 /* 24px between button and GIF: the button keeps its width while animating, so the GIF never moves */
@@ -248,7 +248,7 @@ main{background:var(--surface)}
 .ph{display:inline-block;max-width:100%;text-wrap:balance}
 .cs__punch{font-size:clamp(1.25rem,1rem + .8vw,1.5rem);font-weight:700;line-height:1.2;letter-spacing:-.015em;text-wrap:balance}
 .cs__story p+p{margin-top:.5rem}
-.cs__story p:not(.cs__punch){font-size:.9375rem;color:var(--ink-muted);max-width:52ch;text-wrap:pretty}
+.cs__story p:not(.cs__punch){font-size:.9375rem;color:var(--ink-muted);max-width:52ch;text-wrap:balance}
 .cs__media{display:grid;gap:1rem}
 .cs__shot{border-radius:var(--r-lg);overflow:hidden;background:var(--tint);box-shadow:0 1px 0 var(--line),0 16px 40px -28px rgba(37,48,39,.5)}
 .cs__shot img{width:100%}
@@ -418,7 +418,7 @@ main{background:var(--surface)}
       <a class="project-card" href="projects/pizza-sonic/index.html">
   <div class="project-card__text">
     <h3 class="project-card__name">Pizza Sonic</h3>
-    <p class="project-card__hook"><span class="s">30 years in your neighbourhood.</span><span class="s">Still no one knew they existed online.</span></p>
+    <p class="project-card__hook"><span class="s">30 years in your neighbourhood.</span><span class="s">Still no one knew they existed online.</span></p>
     <p class="project-card__meta">Brand identity · Design system · Website redesign</p>
     <span class="btn btn--accent"><span class="btn__label">Open case study</span><span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
   </div>
@@ -431,7 +431,7 @@ main{background:var(--surface)}
 
 <section class="section section--line" aria-label="Graphic and motion">
   <div class="wrap also">
-    <p><span class="count"><span><span class="count__n">10</span>+</span></span> years of campaigns, social video and identities before UX.</p>
+    <p><span class="count"><span><span class="count__n">10</span>+</span></span> years of campaigns, social video and identities before UX.</p>
     <div class="also__action">
       <span class="gif-slot"><img src="assets/gif/motion.gif" width="48" height="48" alt="" onerror="this.parentNode.classList.add('ph-empty');this.replaceWith('GIF')"></span>
       <a class="btn btn--line reveal-arrow" href="graphic-motion.html"><span class="btn__label">Graphic &amp; motion? I also do that</span><span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
@@ -443,8 +443,8 @@ main{background:var(--surface)}
   <div class="wrap about__grid">
     <h2 class="about__headline reveal" id="about-h"><span class="line"><span>Every tap</span></span><span class="line"><span class="accent">needs a reason.</span></span></h2>
     <div>
-      <p class="about__body">I pull things apart to see what’s inside, then put them back together better. <strong>10 years in motion and graphic design.</strong> Now I do the same with products.</p>
-      <p class="about__body"><strong>My obsession is friction.</strong> When you’re tired and rushing to get something done in an app, the next step should feel instinctive. No decisions needed.</p>
+      <p class="about__body">I pull things apart to see what’s inside, then put them back together better. <strong>10 years in motion and graphic design.</strong> Now I do the same with products.</p>
+      <p class="about__body"><strong>My obsession is friction.</strong> When you’re tired and rushing to get something done in an app, the next step should feel instinctive. No decisions needed.</p>
       <div class="about__action">
         <a class="btn btn--accent reveal-arrow" href="https://linkedin.com/in/dinos-kapsalas-6206a1231" target="_blank" rel="noopener"><span class="btn__label">Get in touch</span><span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
         <span class="gif-slot gif-slot--flip"><img src="assets/gif/monster.gif" width="48" height="48" alt="" onerror="this.parentNode.classList.add('ph-empty');this.replaceWith('GIF')"></span>
