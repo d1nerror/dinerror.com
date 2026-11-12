@@ -384,6 +384,9 @@ main{background:var(--surface)}
 .cta__link:focus-visible{outline:2px solid var(--accent);outline-offset:6px;border-radius:8px}
 .cta__link:active .cta__arrow{transform:scale(.94)}
 .btn:not(:has(.arrow)) .btn__label{transform:none!important}
+.hero__name{text-wrap:balance}
+.hero__body .s{display:block;text-wrap:balance}
+.hero__body{max-width:44ch}
 </style>
 </head>
 <body>
@@ -423,9 +426,9 @@ main{background:var(--surface)}
     <div class="hero__copy">
       
       <h1 class="hero__headline reveal is-in" id="hero-h"><span class="line"><span>Every tap</span></span><span class="line"><span><mark>needs a reason.</mark></span></span></h1>
-      <p class="hero__name"><strong>Dinos Kapsalas</strong>, UI/UX designer in Athens</p>
-      <p class="hero__body">I pull things apart to see what’s inside, then put them back together better. <strong>10&nbsp;years in motion and graphic design.</strong> Now I do the same with&nbsp;products.</p>
-      <p class="hero__body"><strong>My obsession is friction.</strong> When you’re tired and rushing to get something done in an app, the next step should feel instinctive. No decisions&nbsp;needed.</p>
+      <p class="hero__name"><strong>Dinos Kapsalas</strong>, <span style="white-space:nowrap">UI/UX designer in Athens</span></p>
+      <p class="hero__body"><span class="s">I pull things apart to see what’s inside, then put them back together&nbsp;better.</span><span class="s"><strong>10&nbsp;years in motion and graphic&nbsp;design.</strong></span><span class="s">Now I do the same with&nbsp;products.</span></p>
+      <p class="hero__body"><span class="s"><strong>My obsession is&nbsp;friction.</strong></span><span class="s">When you’re tired and rushing to get something done in an app, the&nbsp;next step should feel&nbsp;instinctive.</span><span class="s">No decisions&nbsp;needed.</span></p>
     </div>
   </div>
 </section>
