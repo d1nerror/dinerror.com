@@ -171,13 +171,6 @@ ul {
 .nav-still .nav {
   animation: none;
 }
-.nav.nav--hush,
-html[data-veil="ink"] .nav {
-  box-shadow: 0 8px 28px -14px rgba(37,48,39,0);
-}
-html[data-veil="ink"].veil-done .nav {
-  box-shadow: 0 8px 28px -14px rgba(37,48,39,.65);
-}
 .nav__glow {
   position: absolute;
   z-index: 0;
@@ -349,7 +342,7 @@ html[data-veil="ink"].veil-done .nav {
 @view-transition { navigation:auto }
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: .3s;
+  animation-duration: .4s;
   animation-timing-function: var(--ease-out);
 }
 ::view-transition-group(site-nav) {
@@ -362,25 +355,6 @@ html[data-veil="ink"].veil-done .nav {
   animation: none;
   mix-blend-mode: normal;
 }
-.veil {
-  position: fixed;
-  inset: 0;
-  z-index: 40;
-  pointer-events: none;
-  opacity: 0;
-  background: var(--surface);
-  transition: opacity .7s cubic-bezier(.45,0,.25,1);
-}
-.veil.is-on {
-  opacity: 1;
-}
-[data-veil] .veil {
-  animation: veil-out .5s var(--ease-out) both;
-}
-[data-veil="ink"] .veil {
-  background: var(--ink);
-}
-@keyframes veil-out { from{opacity:1}to{opacity:0} }
 main {
   background: var(--surface);
 }

@@ -18,7 +18,7 @@
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#253027">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%91%BE%3C/text%3E%3C/svg%3E">
-<script>(r=>{r.classList.add('js');try{const v=sessionStorage.getItem('veil');if(v){r.dataset.veil=v;sessionStorage.removeItem('veil')}if(sessionStorage.getItem('nav-seen'))r.classList.add('nav-still');sessionStorage.setItem('nav-seen','1')}catch(e){}addEventListener('pageshow',()=>requestAnimationFrame(()=>r.classList.add('smooth')))})(document.documentElement)</script>
+<script>(r=>{r.classList.add('js');try{if(sessionStorage.getItem('nav-seen'))r.classList.add('nav-still');sessionStorage.setItem('nav-seen','1')}catch(e){}addEventListener('pageshow',()=>requestAnimationFrame(()=>r.classList.add('smooth')))})(document.documentElement)</script>
 <link rel="expect" href="#nav-ready" blocking="render">
 <link rel="preload" href="assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/site.css">
@@ -108,6 +108,7 @@
   }
 }
 </style>
+<script type="speculationrules">{"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
 </head>
 <body>
 <div id="cursor-dot" aria-hidden="true"></div>
@@ -121,7 +122,6 @@
     <path class="px-k" d="M23 0H29V18H23Z M38 0H44V6H38Z M32 6H38V12H32Z M38 12H44V18H38Z"/>
   </g>
 </svg></a>
-<div class="veil" aria-hidden="true"></div>
 <header class="site-header">
   <nav class="nav" aria-label="Main">
     <span class="nav__glow" aria-hidden="true"></span>
@@ -195,8 +195,6 @@
 <footer class="site-footer"><div class="wrap"><span>© <span id="yr">2026</span> Dinos Kapsalas</span><a class="play-link" href="play.html">Beat my high score</a></div></footer>
 <script>
 (() => {
-  /* arriving under the dark veil: bring the nav's shadow back once the page has faded in */
-  if (document.documentElement.dataset.veil === 'ink') setTimeout(() => document.documentElement.classList.add('veil-done'), 520);
   /* case study: when the text column is taller than the screen, pin it by its
      bottom edge (negative sticky top) so every line can be read */
   const side = document.querySelector('.cs__side');
@@ -273,7 +271,7 @@
     if (head && tail && bridge) {
       sync(true);
       addEventListener('resize', () => sync(true));
-      addEventListener('pageshow', e => { if (e.persisted) { busy = false; document.querySelector('.veil')?.classList.remove('is-on'); nav.classList.remove('nav--hush'); sync(true); } });  /* back button */
+      addEventListener('pageshow', e => { if (e.persisted) { busy = false; sync(true); } });  /* back button */
       links.forEach(a => a.addEventListener('click', e => {
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;      /* new tab: leave it to the browser */
         const from = current();
@@ -285,20 +283,13 @@
         if (from) from.removeAttribute('aria-current');
         a.setAttribute('aria-current', 'page');                            /* label turns green with the drop */
         busy = true;
-        const ms = 700;
+        const ms = 450;
         pour(from, a, ms);
         if (samePage) {                                                     /* home -> Contact: scroll while it pours */
           history.pushState(null, '', url.hash);
           document.querySelector(url.hash)?.scrollIntoView({ behavior: 'smooth' });
           setTimeout(() => { busy = false; dispatchEvent(new Event('scroll')); }, 1200);
         } else {
-          const veil = document.querySelector('.veil'), tone = /contact\.html$/.test(a.href) ? 'ink' : 'surface';
-          if (veil) {
-            veil.style.background = `var(--${tone})`;
-            nav.classList.toggle('nav--hush', tone === 'ink');
-            requestAnimationFrame(() => veil.classList.add('is-on'));   /* fades at the same time as the drop */
-            try { sessionStorage.setItem('veil', tone); } catch (_) {}
-          }
           setTimeout(() => { location.href = a.href; }, ms);
         }
       }));
