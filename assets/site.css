@@ -1465,6 +1465,9 @@ main {
   .cs__shot.cs__scroll img.w-screens {
     width: 760px;
   }
+  .cs__shot.cs__scroll img.w-wide {
+    width: 1200px;
+  }
   .cs__hint {
     display: block;
     margin-top: .5rem;
