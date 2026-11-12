@@ -385,9 +385,11 @@ main{background:var(--surface)}
 .cta__link:active .cta__arrow{transform:scale(.94)}
 .btn:not(:has(.arrow)) .btn__label{transform:none!important}
 .hero__name{text-wrap:balance}
-.hero__body .s{display:block;text-wrap:balance}
+.hero__body .l,.hero__body .s{display:block;text-wrap:balance}
 .hero__body{max-width:44ch}
+@media (min-width:80rem){.hero__body{max-width:none}.hero__body .s{display:inline}.hero__body .l{white-space:nowrap}}
 .project-card{background:transparent}.project-card__text{background:var(--ink)}.project-card__media{background:transparent}.project-card__media.ph-empty{background:var(--media)}
+@media (min-width:48rem){.hero__grid{align-items:stretch}.hero__photo{width:auto;height:auto;max-height:none;aspect-ratio:3/4;align-self:stretch}}
 </style>
 </head>
 <body>
@@ -428,8 +430,8 @@ main{background:var(--surface)}
       
       <h1 class="hero__headline reveal is-in" id="hero-h"><span class="line"><span>Every tap</span></span><span class="line"><span><mark>needs a reason.</mark></span></span></h1>
       <p class="hero__name"><strong>Dinos Kapsalas</strong>, <span style="white-space:nowrap">UI/UX designer in Athens</span></p>
-      <p class="hero__body"><span class="s">I pull things apart to see what’s inside, then put them back together&nbsp;better.</span><span class="s"><strong>10&nbsp;years in motion and graphic&nbsp;design.</strong></span><span class="s">Now I do the same with&nbsp;products.</span></p>
-      <p class="hero__body"><span class="s"><strong>My obsession is&nbsp;friction.</strong></span><span class="s">When you’re tired and rushing to get something done in an app, the&nbsp;next step should feel&nbsp;instinctive.</span><span class="s">No decisions&nbsp;needed.</span></p>
+      <p class="hero__body"><span class="l"><span class="s">I pull things apart to see what’s inside, then put them back together&nbsp;better.</span></span><span class="l"><span class="s"><strong>10&nbsp;years in motion and graphic&nbsp;design.</strong></span> <span class="s">Now I do the same with&nbsp;products.</span></span></p>
+      <p class="hero__body"><span class="l"><span class="s"><strong>My obsession is&nbsp;friction.</strong></span></span><span class="l"><span class="s">When you’re tired and rushing to get something done in an&nbsp;app,</span></span><span class="l"><span class="s">the next step should feel&nbsp;instinctive.</span> <span class="s">No decisions&nbsp;needed.</span></span></p>
     </div>
   </div>
 </section>
