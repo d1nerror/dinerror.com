@@ -1507,3 +1507,9 @@ main {
 .cs__link {
   margin-top: 1.5rem;
 }
+.cs__body .ln {
+  display: inline;
+}
+.cs__body .ln::after {
+  content: " ";
+}
