@@ -2,11 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="canonical" href="https://dinerror.com/projects.html">
+<meta property="og:url" content="https://dinerror.com/projects.html">
+<meta property="og:image" content="https://dinerror.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Projects - Dinos Kapsalas - UI/UX Designer</title>
-<meta name="description" content="UI/UX case studies by Dinos Kapsalas: Krystallis, Pizza Sonic, Eri Bakes Vegan.">
+<meta name="description" content="UI/UX case studies by Dinos Kapsalas: website redesigns for Krystallis and Pizza Sonic, a Forbidden Memories fusion calculator and a vegan bakery brand.">
 <meta property="og:title" content="Projects - Dinos Kapsalas - UI/UX Designer">
-<meta property="og:description" content="UI/UX case studies by Dinos Kapsalas: Krystallis, Pizza Sonic, Eri Bakes Vegan.">
+<meta property="og:description" content="UI/UX case studies by Dinos Kapsalas: website redesigns for Krystallis and Pizza Sonic, a Forbidden Memories fusion calculator and a vegan bakery brand.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#253027">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%91%BE%3C/text%3E%3C/svg%3E">
@@ -359,6 +366,8 @@ main{background:var(--surface)}
   ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}
   .grain{display:none}
 }
+.page-back{display:inline-flex;align-items:center;gap:.5rem;height:32px;padding:0 12px 0 8px;margin-bottom:1.5rem;border-radius:var(--r-pill);border:1.5px solid var(--ink);font-size:var(--fs-small);font-weight:600;text-decoration:none;color:var(--ink);transition:background-color var(--dur),color var(--dur)}.page-back svg{width:16px;height:16px}@media (hover:hover){.page-back:hover{background:var(--ink);color:var(--surface)}}.page-back:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.btn:not(:has(.arrow)) .btn__label{transform:none!important}
 </style>
 </head>
 <body>
@@ -380,14 +389,14 @@ main{background:var(--surface)}
     <span class="nav__goo" aria-hidden="true"><span class="nav__blob" data-blob="tail"></span><span class="nav__blob" data-blob="bridge"></span><span class="nav__blob" data-blob="head"></span></span>
     <ul>
       <li><a href="projects.html" aria-current="page">Projects</a></li>
-      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
 </header>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="nav-goo"><feGaussianBlur in="SourceGraphic" stdDeviation="6" result="b"/><feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9"/></filter></svg>
 <main id="main">
 <section class="page-head" aria-labelledby="ph">
-  <div class="wrap"><h1 class="page-title" id="ph">Projects</h1></div>
+  <div class="wrap"><a class="cs__back page-back" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Home</a><h1 class="page-title" id="ph">Projects</h1></div>
 </section>
 <section class="section" style="padding-top:0" aria-label="Projects">
   <div class="wrap">
@@ -536,7 +545,7 @@ main{background:var(--surface)}
           document.querySelector(url.hash)?.scrollIntoView({ behavior: 'smooth' });
           setTimeout(() => { busy = false; dispatchEvent(new Event('scroll')); }, 1200);
         } else {
-          const veil = document.querySelector('.veil'), tone = /#contact$/.test(a.href) ? 'ink' : 'surface';
+          const veil = document.querySelector('.veil'), tone = /contact\.html$/.test(a.href) ? 'ink' : 'surface';
           if (veil) {
             veil.style.background = `var(--${tone})`;
             nav.classList.toggle('nav--hush', tone === 'ink');
@@ -550,7 +559,7 @@ main{background:var(--surface)}
 
     /* home only: Contact is current while that section is on screen */
     const contact = document.getElementById('contact');
-    const cLink = nav.querySelector('a[href="#contact"]');
+    const cLink = nav.querySelector('a[href="contact.html"]');
     if (contact && cLink) {
       let t = false;
       const spy = (first) => {

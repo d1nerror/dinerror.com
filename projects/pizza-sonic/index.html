@@ -2,11 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="canonical" href="https://dinerror.com/projects/pizza-sonic/">
+<meta property="og:url" content="https://dinerror.com/projects/pizza-sonic/">
+<meta property="og:image" content="https://dinerror.com/projects/pizza-sonic/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pizza Sonic, case study - Dinos Kapsalas - UI/UX Designer</title>
-<meta name="description" content="Pizza Sonic: 30 years in your neighbourhood. Still no one knew they existed online.">
-<meta property="og:title" content="Pizza Sonic, case study - Dinos Kapsalas - UI/UX Designer">
-<meta property="og:description" content="Pizza Sonic: 30 years in your neighbourhood. Still no one knew they existed online.">
+<title>Pizza Sonic case study - Dinos Kapsalas</title>
+<meta name="description" content="Pizza Sonic, a Gerakas pizzeria since 1994: a brand and website redesign by Dinos Kapsalas, with a clearer menu, easy-to-find contact details and a new visual identity.">
+<meta property="og:title" content="Pizza Sonic case study - Dinos Kapsalas">
+<meta property="og:description" content="Pizza Sonic, a Gerakas pizzeria since 1994: a brand and website redesign by Dinos Kapsalas, with a clearer menu, easy-to-find contact details and a new visual identity.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#253027">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%91%BE%3C/text%3E%3C/svg%3E">
@@ -400,9 +407,10 @@ main{background:var(--surface)}
 .cs__body,.cs--flow .cs__intro .cs__facts{max-width:none!important}
 @media (min-width:761px){.cs__text .cs__punch .s{display:inline}.cs__text .cs__punch .s+.s::before{content:" "}}
 @media (max-width:760px){.cs__shot.cs__scroll img.w-desk{width:900px}}
-.cs__shot--mob{background:#1E1E1E}.cs__shot.cs__shot--mob img.w-mob{width:min(100%,720px);margin-inline:auto}
+.cs__shot--mob{background:var(--media)}.cs__shot.cs__shot--mob img.w-mob{width:min(100%,720px);margin-inline:auto}
 @media (max-width:760px){.cs__shot.cs__scroll.cs__shot--mob img.w-mob{width:520px;max-width:none}}
 @media (min-width:1100px){.cs__body .ln{display:block}}
+.btn:not(:has(.arrow)) .btn__label{transform:none!important}
 </style>
 </head>
 <body>
@@ -424,7 +432,7 @@ main{background:var(--surface)}
     <span class="nav__goo" aria-hidden="true"><span class="nav__blob" data-blob="tail"></span><span class="nav__blob" data-blob="bridge"></span><span class="nav__blob" data-blob="head"></span></span>
     <ul>
       <li><a href="../../projects.html" aria-current="page">Projects</a></li>
-      <li><a href="../../index.html#contact">Contact</a></li>
+      <li><a href="../../contact.html">Contact</a></li>
     </ul>
   </nav>
 </header>
@@ -550,7 +558,7 @@ main{background:var(--surface)}
           document.querySelector(url.hash)?.scrollIntoView({ behavior: 'smooth' });
           setTimeout(() => { busy = false; dispatchEvent(new Event('scroll')); }, 1200);
         } else {
-          const veil = document.querySelector('.veil'), tone = /#contact$/.test(a.href) ? 'ink' : 'surface';
+          const veil = document.querySelector('.veil'), tone = /contact\.html$/.test(a.href) ? 'ink' : 'surface';
           if (veil) {
             veil.style.background = `var(--${tone})`;
             nav.classList.toggle('nav--hush', tone === 'ink');
@@ -564,7 +572,7 @@ main{background:var(--surface)}
 
     /* home only: Contact is current while that section is on screen */
     const contact = document.getElementById('contact');
-    const cLink = nav.querySelector('a[href="#contact"]');
+    const cLink = nav.querySelector('a[href="contact.html"]');
     if (contact && cLink) {
       let t = false;
       const spy = (first) => {

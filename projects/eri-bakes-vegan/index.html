@@ -2,11 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="canonical" href="https://dinerror.com/projects/eri-bakes-vegan/">
+<meta property="og:url" content="https://dinerror.com/projects/eri-bakes-vegan/">
+<meta property="og:image" content="https://dinerror.com/projects/eri-bakes-vegan/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Eri Bakes Vegan, case study - Dinos Kapsalas - UI/UX Designer</title>
-<meta name="description" content="Eri Bakes Vegan: Vegan cakes that don’t taste like a compromise. The brand had to say so.">
-<meta property="og:title" content="Eri Bakes Vegan, case study - Dinos Kapsalas - UI/UX Designer">
-<meta property="og:description" content="Eri Bakes Vegan: Vegan cakes that don’t taste like a compromise. The brand had to say so.">
+<title>Eri Bakes Vegan case study - Dinos Kapsalas</title>
+<meta name="description" content="Eri Bakes Vegan: brand identity and website by Dinos Kapsalas for a vegan pastry chef whose cakes don’t taste like a compromise.">
+<meta property="og:title" content="Eri Bakes Vegan case study - Dinos Kapsalas">
+<meta property="og:description" content="Eri Bakes Vegan: brand identity and website by Dinos Kapsalas for a vegan pastry chef whose cakes don’t taste like a compromise.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#253027">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%91%BE%3C/text%3E%3C/svg%3E">
@@ -359,6 +366,7 @@ main{background:var(--surface)}
   ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}
   .grain{display:none}
 }
+.btn:not(:has(.arrow)) .btn__label{transform:none!important}
 </style>
 </head>
 <body>
@@ -380,7 +388,7 @@ main{background:var(--surface)}
     <span class="nav__goo" aria-hidden="true"><span class="nav__blob" data-blob="tail"></span><span class="nav__blob" data-blob="bridge"></span><span class="nav__blob" data-blob="head"></span></span>
     <ul>
       <li><a href="../../projects.html" aria-current="page">Projects</a></li>
-      <li><a href="../../index.html#contact">Contact</a></li>
+      <li><a href="../../contact.html">Contact</a></li>
     </ul>
   </nav>
 </header>
@@ -506,7 +514,7 @@ main{background:var(--surface)}
           document.querySelector(url.hash)?.scrollIntoView({ behavior: 'smooth' });
           setTimeout(() => { busy = false; dispatchEvent(new Event('scroll')); }, 1200);
         } else {
-          const veil = document.querySelector('.veil'), tone = /#contact$/.test(a.href) ? 'ink' : 'surface';
+          const veil = document.querySelector('.veil'), tone = /contact\.html$/.test(a.href) ? 'ink' : 'surface';
           if (veil) {
             veil.style.background = `var(--${tone})`;
             nav.classList.toggle('nav--hush', tone === 'ink');
@@ -520,7 +528,7 @@ main{background:var(--surface)}
 
     /* home only: Contact is current while that section is on screen */
     const contact = document.getElementById('contact');
-    const cLink = nav.querySelector('a[href="#contact"]');
+    const cLink = nav.querySelector('a[href="contact.html"]');
     if (contact && cLink) {
       let t = false;
       const spy = (first) => {
