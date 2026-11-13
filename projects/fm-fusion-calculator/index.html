@@ -22,6 +22,7 @@
 <link rel="preload" href="../../assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../../assets/site.css">
 
+<script>addEventListener('pagereveal',e=>{if(!e.viewTransition||matchMedia('(prefers-reduced-motion: reduce)').matches)return;const r=document.documentElement;r.classList.add('vt-enter');const run=()=>{const h=document.querySelector('main h1:not(.hero__headline)');if(h&&!h.children.length){const t=h.textContent.trim();let i=0;h.setAttribute('aria-label',t);h.innerHTML=t.split(' ').map(w=>'<span class="vt-w" aria-hidden="true">'+[...w].map(c=>'<span style="--i:'+(i++)+'">'+c.replace(/&/,'&amp;').replace(/</,'&lt;')+'</span>').join('')+'</span>').join(' ')}setTimeout(()=>r.classList.remove('vt-enter'),1400)};document.readyState==='loading'?document.addEventListener('DOMContentLoaded',run):run()})</script>
 <script type="speculationrules">{"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
 </head>
 <body>
@@ -56,7 +57,7 @@
 <section class="cs__block"><div class="cs__text"><div class="cs__lead"><h2>Identity</h2><p class="cs__punch"><span class="s">Gold frames.</span><span class="s">Old lettering.</span></p></div><div class="cs__body"><p>The look borrows from the old card borders: gold double frames, a dark gold palette and Cinzel titles. Body text uses the device’s own font, so it stays fast and easy to read.</p></div></div><figure class="cs__fig"><div class="cs__shot cs__scroll" tabindex="0" role="region" aria-label="Deck view on a laptop, scroll sideways"><img class="w-old" src="02.webp" width="1600" height="1000" alt="The Deck view on a laptop: 93% of monsters have a fusion partner, with the strongest fusions listed" loading="lazy" decoding="async"></div><p class="cs__hint">Swipe sideways to see it all →</p></figure><figure class="cs__fig"><div class="cs__shot cs__scroll" tabindex="0" role="region" aria-label="Visual identity, scroll sideways"><img class="w-wide" src="04.webp" width="2400" height="1500" alt="Visual identity: the desktop app’s hand view, a palette of golds, creams and darks with a coral warning colour, and the Cinzel and system typefaces" loading="lazy" decoding="async"></div><p class="cs__hint">Swipe sideways to see it all →</p></figure></section>
 <section class="cs__block"><div class="cs__text"><div class="cs__lead"><h2>Result</h2><p class="cs__punch">Open it when you’re stuck.</p></div><div class="cs__body"><p><span class="ln">A free app that works offline,</span><span class="ln">on a phone next to the console.</span><span class="ln">Open source under GPL‑3.0,</span><span class="ln">with card data from the YGO FM Database.</span></p><p>A fan project, not affiliated with Konami.</p><div class="cs__link"><a class="btn btn--line reveal-arrow" href="https://github.com/d1nerror/Yu-Gi-Oh--Forbidden-Memories-Fusions-Calculator" target="_blank" rel="noopener"><span class="btn__label">View on GitHub</span><span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div></div><figure class="cs__fig"><div class="cs__shot cs__scroll" tabindex="0" role="region" aria-label="Hand view on a phone, scroll sideways"><img class="w-old" loading="lazy" decoding="async" src="01.webp" width="1600" height="1000" alt="The fusion calculator on a phone: a hand of four cards with their attack points"></div><p class="cs__hint">Swipe sideways to see it all →</p></figure></section>
 </div>
-<aside class="wrap cs__cta"><a class="btn btn--accent" href="../../contact.html"><span class="btn__label">Get in touch</span></a></aside>
+<aside class="wrap cs__cta"><a class="btn btn--accent reveal-arrow" href="../../contact.html"><span class="btn__label">Get in touch</span><span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></aside>
 <nav class="wrap cs__pager" aria-label="More case studies">
     <div class="cs__pager-item">
       <p>Pizza Sonic</p>
@@ -160,7 +161,7 @@
         if (from) from.removeAttribute('aria-current');
         a.setAttribute('aria-current', 'page');                            /* label turns green with the drop */
         busy = true;
-        const ms = 450;
+        const ms = 300;
         pour(from, a, ms);
         if (samePage) {                                                     /* home -> Contact: scroll while it pours */
           history.pushState(null, '', url.hash);
@@ -172,26 +173,6 @@
       }));
     }
 
-    /* home only: Contact is current while that section is on screen */
-    const contact = document.getElementById('contact');
-    const cLink = nav.querySelector('a[href="contact.html"]');
-    if (contact && cLink) {
-      let t = false;
-      const spy = (first) => {
-        t = false;
-        if (busy) return;
-        const atBottom = innerHeight + scrollY >= document.documentElement.scrollHeight - 4;
-        /* arriving at index.html#contact the browser has not scrolled yet when this first runs */
-        const on = atBottom || contact.getBoundingClientRect().top < innerHeight * .5 || (first === true && location.hash === '#contact');
-        if (on === cLink.hasAttribute('aria-current')) return;
-        on ? cLink.setAttribute('aria-current', 'true') : cLink.removeAttribute('aria-current');
-        if (head && !reduce.matches && on && first !== true) { pour(null, cLink, 450); setTimeout(() => sync(true), 470); }
-        else sync(false);
-      };
-      addEventListener('scroll', () => { if (!t) { t = true; requestAnimationFrame(spy); } }, { passive: true });
-      spy(true);   /* landing on #contact: already in place, no pour */
-      sync(true);
-    }
   }
 
   /* headlines with .reveal (not already playing) animate in the first time they are on screen */

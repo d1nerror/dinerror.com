@@ -23,6 +23,7 @@
 <link rel="preload" href="../../assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../../assets/site.css">
 
+<script>addEventListener('pagereveal',e=>{if(!e.viewTransition||matchMedia('(prefers-reduced-motion: reduce)').matches)return;const r=document.documentElement;r.classList.add('vt-enter');const run=()=>{const h=document.querySelector('main h1:not(.hero__headline)');if(h&&!h.children.length){const t=h.textContent.trim();let i=0;h.setAttribute('aria-label',t);h.innerHTML=t.split(' ').map(w=>'<span class="vt-w" aria-hidden="true">'+[...w].map(c=>'<span style="--i:'+(i++)+'">'+c.replace(/&/,'&amp;').replace(/</,'&lt;')+'</span>').join('')+'</span>').join(' ')}setTimeout(()=>r.classList.remove('vt-enter'),1400)};document.readyState==='loading'?document.addEventListener('DOMContentLoaded',run):run()})</script>
 <script type="speculationrules">{"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
 </head>
 <body>
@@ -152,7 +153,7 @@
         if (from) from.removeAttribute('aria-current');
         a.setAttribute('aria-current', 'page');                            /* label turns green with the drop */
         busy = true;
-        const ms = 450;
+        const ms = 300;
         pour(from, a, ms);
         if (samePage) {                                                     /* home -> Contact: scroll while it pours */
           history.pushState(null, '', url.hash);
@@ -164,26 +165,6 @@
       }));
     }
 
-    /* home only: Contact is current while that section is on screen */
-    const contact = document.getElementById('contact');
-    const cLink = nav.querySelector('a[href="contact.html"]');
-    if (contact && cLink) {
-      let t = false;
-      const spy = (first) => {
-        t = false;
-        if (busy) return;
-        const atBottom = innerHeight + scrollY >= document.documentElement.scrollHeight - 4;
-        /* arriving at index.html#contact the browser has not scrolled yet when this first runs */
-        const on = atBottom || contact.getBoundingClientRect().top < innerHeight * .5 || (first === true && location.hash === '#contact');
-        if (on === cLink.hasAttribute('aria-current')) return;
-        on ? cLink.setAttribute('aria-current', 'true') : cLink.removeAttribute('aria-current');
-        if (head && !reduce.matches && on && first !== true) { pour(null, cLink, 450); setTimeout(() => sync(true), 470); }
-        else sync(false);
-      };
-      addEventListener('scroll', () => { if (!t) { t = true; requestAnimationFrame(spy); } }, { passive: true });
-      spy(true);   /* landing on #contact: already in place, no pour */
-      sync(true);
-    }
   }
 
   /* headlines with .reveal (not already playing) animate in the first time they are on screen */

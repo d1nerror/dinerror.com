@@ -22,6 +22,7 @@
 <link rel="preload" href="../../assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../../assets/site.css">
 
+<script>addEventListener('pagereveal',e=>{if(!e.viewTransition||matchMedia('(prefers-reduced-motion: reduce)').matches)return;const r=document.documentElement;r.classList.add('vt-enter');const run=()=>{const h=document.querySelector('main h1:not(.hero__headline)');if(h&&!h.children.length){const t=h.textContent.trim();let i=0;h.setAttribute('aria-label',t);h.innerHTML=t.split(' ').map(w=>'<span class="vt-w" aria-hidden="true">'+[...w].map(c=>'<span style="--i:'+(i++)+'">'+c.replace(/&/,'&amp;').replace(/</,'&lt;')+'</span>').join('')+'</span>').join(' ')}setTimeout(()=>r.classList.remove('vt-enter'),1400)};document.readyState==='loading'?document.addEventListener('DOMContentLoaded',run):run()})</script>
 <script type="speculationrules">{"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
 </head>
 <body>
@@ -55,7 +56,7 @@
 <section class="cs__block"><div class="cs__text"><div class="cs__lead"><h2>The brand</h2><p class="cs__punch">An identity as handmade as the cakes.</p></div><div class="cs__body"><p><span class="ln">I designed her brand identity from scratch.</span></p></div></div><figure class="cs__fig"><div class="cs__shot cs__scroll" tabindex="0" role="region" aria-label="Mockup 2, scroll sideways"><img class="w-old" src="02.webp" width="1600" height="1000" alt="Eri Bakes Vegan mockup 2" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('ph-empty');this.parentNode.dataset.ph='Drop 02.webp in this folder';this.replaceWith('Drop 02.webp in this folder')"></div><p class="cs__hint">Swipe sideways to see it all →</p></figure></section>
 <section class="cs__block"><div class="cs__text"><div class="cs__lead"><h2>The website</h2><p class="cs__punch"><span class="s">Browse the catalogue.</span><span class="s">Ask for your cake.</span></p></div><div class="cs__body"><p><span class="ln">The site does two things: shows what she bakes,</span><span class="ln">and makes it easy to get in touch for a custom order.</span></p></div></div><figure class="cs__fig"><div class="cs__shot cs__scroll" tabindex="0" role="region" aria-label="Mockup 3, scroll sideways"><img class="w-old" src="03.webp" width="1600" height="1000" alt="Eri Bakes Vegan mockup 3" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('ph-empty');this.parentNode.dataset.ph='Drop 03.webp in this folder';this.replaceWith('Drop 03.webp in this folder')"></div><p class="cs__hint">Swipe sideways to see it all →</p></figure></section>
 </div>
-<aside class="wrap cs__cta"><a class="btn btn--accent" href="../../contact.html"><span class="btn__label">Get in touch</span></a></aside>
+<aside class="wrap cs__cta"><a class="btn btn--accent reveal-arrow" href="../../contact.html"><span class="btn__label">Get in touch</span><span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></aside>
 <nav class="wrap cs__pager" aria-label="More case studies">
     <div class="cs__pager-item">
       <p>Forbidden Memories fusion calculator</p>
@@ -156,7 +157,7 @@
         if (from) from.removeAttribute('aria-current');
         a.setAttribute('aria-current', 'page');                            /* label turns green with the drop */
         busy = true;
-        const ms = 450;
+        const ms = 300;
         pour(from, a, ms);
         if (samePage) {                                                     /* home -> Contact: scroll while it pours */
           history.pushState(null, '', url.hash);
@@ -168,26 +169,6 @@
       }));
     }
 
-    /* home only: Contact is current while that section is on screen */
-    const contact = document.getElementById('contact');
-    const cLink = nav.querySelector('a[href="contact.html"]');
-    if (contact && cLink) {
-      let t = false;
-      const spy = (first) => {
-        t = false;
-        if (busy) return;
-        const atBottom = innerHeight + scrollY >= document.documentElement.scrollHeight - 4;
-        /* arriving at index.html#contact the browser has not scrolled yet when this first runs */
-        const on = atBottom || contact.getBoundingClientRect().top < innerHeight * .5 || (first === true && location.hash === '#contact');
-        if (on === cLink.hasAttribute('aria-current')) return;
-        on ? cLink.setAttribute('aria-current', 'true') : cLink.removeAttribute('aria-current');
-        if (head && !reduce.matches && on && first !== true) { pour(null, cLink, 450); setTimeout(() => sync(true), 470); }
-        else sync(false);
-      };
-      addEventListener('scroll', () => { if (!t) { t = true; requestAnimationFrame(spy); } }, { passive: true });
-      spy(true);   /* landing on #contact: already in place, no pour */
-      sync(true);
-    }
   }
 
   /* headlines with .reveal (not already playing) animate in the first time they are on screen */

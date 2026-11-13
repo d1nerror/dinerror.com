@@ -113,7 +113,7 @@ ul {
   pointer-events: none;
   z-index: 40;
   opacity: .055;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image: url("grain.png");
   animation: grain .8s steps(4) infinite;
 }
 @keyframes grain { 0%,100%{transform:translate3d(0,0,0)}25%{transform:translate3d(-24px,12px,0)}50%{transform:translate3d(16px,-16px,0)}75%{transform:translate3d(-12px,24px,0)} }
@@ -341,10 +341,32 @@ ul {
   color: inherit;
 }
 @view-transition { navigation:auto }
-::view-transition-old(root),
+::view-transition-old(root) {
+  animation: vt-sink .35s var(--ease-io) both;
+}
 ::view-transition-new(root) {
-  animation-duration: .4s;
-  animation-timing-function: var(--ease-out);
+  animation: none;
+}
+@keyframes vt-sink { to { opacity: 0; scale: .97; filter: blur(2px) } }
+@keyframes vt-rise { from { opacity: 0; translate: 0 28px } }
+@keyframes vt-letter { from { translate: 0 105% } }
+html.vt-enter main > * {
+  animation: vt-rise .8s var(--ease-out) both;
+}
+html.vt-enter main > :nth-child(2) { animation-delay: .07s }
+html.vt-enter main > :nth-child(n+3) { animation-delay: .14s }
+.vt-w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  white-space: nowrap;
+}
+.vt-w > span {
+  display: inline-block;
+}
+html.vt-enter .vt-w > span {
+  animation: vt-letter .8s var(--ease-out) both;
+  animation-delay: calc(var(--i) * 28ms);
 }
 ::view-transition-group(site-nav) {
   animation-duration: 0s;
