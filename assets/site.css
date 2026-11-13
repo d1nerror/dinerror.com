@@ -112,7 +112,7 @@ ul {
   inset: -48px;
   pointer-events: none;
   z-index: 40;
-  opacity: .055;
+  opacity: .04;
   background-image: url("grain.png");
   animation: grain .8s steps(4) infinite;
 }
