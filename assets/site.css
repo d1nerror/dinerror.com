@@ -25,6 +25,7 @@
   --fs-small: .8125rem;
   --ease-out: cubic-bezier(.22,1,.36,1);
   --ease-pop: cubic-bezier(0,.979,1,1);
+  --ease-io: cubic-bezier(.76,0,.24,1);
   --dur-fast: 150ms;
   --dur: 250ms;
   --dur-slow: 600ms;
@@ -1489,4 +1490,125 @@ main {
 }
 .cs__body .ln::after {
   content: " ";
+}
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin-top: 2rem;
+}
+.cs__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem 2rem;
+  padding-top: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+  border-top: 1px solid var(--line);
+}
+.page-title-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.gm-roll {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  height: 72px;
+  padding-inline: 32px;
+  border: 2px solid var(--ink);
+  border-radius: var(--r-pill);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: clamp(1.0625rem, .95rem + .6vw, 1.375rem);
+  text-decoration: none;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color .5s var(--ease-io);
+}
+.gm-roll::before {
+  content: "";
+  position: absolute;
+  left: var(--mx, 50%);
+  top: 50%;
+  width: 260%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--ink);
+  translate: -50% -50%;
+  scale: 0;
+  transition: scale .8s var(--ease-io);
+  z-index: -1;
+}
+.gm-roll svg {
+  width: 1em;
+  height: 1em;
+  flex: none;
+  transition: transform .6s var(--ease-io);
+}
+.gm-roll:hover,
+.gm-roll:focus-visible {
+  color: var(--accent);
+}
+.gm-roll:hover::before,
+.gm-roll:focus-visible::before {
+  scale: 1;
+}
+.gm-roll:hover svg,
+.gm-roll:focus-visible svg {
+  transform: translateX(6px) rotate(-45deg);
+}
+.gm-roll:active {
+  transform: scale(.99);
+}
+.gm-roll__text {
+  display: inline-flex;
+  white-space: pre;
+  line-height: 1.25;
+}
+.gm-roll__text .c {
+  display: inline-block;
+  overflow: hidden;
+  height: 1.25em;
+  vertical-align: top;
+}
+.gm-roll__text .c i {
+  display: block;
+  font-style: normal;
+  text-shadow: 0 1.25em 0 currentColor;
+  transition: transform .7s var(--ease-io);
+  transition-delay: calc(var(--o) * 22ms);
+}
+.gm-roll:hover .c i,
+.gm-roll:focus-visible .c i,
+.gm-roll.is-rolled .c i {
+  transform: translateY(-1.25em);
+  transition-delay: calc(var(--i) * 22ms);
+}
+@media (max-width:47.99rem) {
+  .gm-roll {
+    height: 64px;
+    padding-inline: 22px;
+  }
+}
+@media (max-width:359px) {
+  .gm-roll {
+    padding-inline: 18px;
+    font-size: .875rem;
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  .gm-roll,
+  .gm-roll::before,
+  .gm-roll svg,
+  .gm-roll__text .c i {
+    transition: none;
+  }
+  .gm-roll .c i {
+    transform: none !important;
+  }
 }

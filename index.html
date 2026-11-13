@@ -61,6 +61,9 @@
   .hero__body {
     margin-inline: auto;
   }
+  .hero__cta {
+    justify-content: center;
+  }
 }
 
 .hero__name {
@@ -147,8 +150,9 @@
       
       <h1 class="hero__headline reveal is-in" id="hero-h"><span class="line"><span>Every tap</span></span><span class="line"><span><mark>needs a reason.</mark></span></span></h1>
       <p class="hero__name"><strong>Dinos Kapsalas</strong>, <span style="white-space:nowrap">UI/UX designer in Athens</span></p>
-      <p class="hero__body"><span class="l"><span class="s">I pull things apart to see what’s inside, then put them back together&nbsp;better.</span></span><span class="l"><span class="s"><strong>10&nbsp;years in motion and graphic&nbsp;design.</strong></span> <span class="s">Now I do the same with&nbsp;products.</span></span></p>
+      <p class="hero__body"><span class="l"><span class="s">I pull things apart to see what’s inside, then put them back together&nbsp;better.</span></span><span class="l"><span class="s"><strong><span class="count"><span><span class="count__n">10</span>+</span></span>&nbsp;years in motion and graphic&nbsp;design.</strong></span> <span class="s">Now I do the same with&nbsp;products.</span></span></p>
       <p class="hero__body"><span class="l"><span class="s"><strong>My obsession is&nbsp;friction.</strong></span></span><span class="l"><span class="s">When you’re tired and rushing to get something done in an&nbsp;app,</span></span><span class="l"><span class="s">the next step should feel&nbsp;instinctive.</span> <span class="s">No decisions&nbsp;needed.</span></span></p>
+      <div class="hero__cta"><a class="btn btn--accent" href="contact.html"><span class="btn__label">Get in touch</span></a></div>
     </div>
   </div>
 </section>
@@ -181,12 +185,8 @@
 </section>
 
 <section class="section section--line" aria-label="Graphic and motion">
-  <div class="wrap also">
-    <p><span class="count"><span><span class="count__n">10</span>+</span></span> years of campaigns, social video and identities before UX.</p>
-    <div class="also__action">
-      <span class="gif-slot"><img src="assets/gif/motion.gif" width="48" height="48" alt="" onerror="this.parentNode.classList.add('ph-empty');this.replaceWith('GIF')"></span>
-      <a class="btn btn--line reveal-arrow" href="graphic-motion.html"><span class="btn__label">Graphic &amp; motion? I also do that</span><span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-    </div>
+  <div class="wrap">
+    <a class="gm-roll" href="graphic-motion.html"><span class="gm-roll__text" data-text="Graphic &amp; motion design works">Graphic &amp; motion design works</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
   </div>
 </section>
 
@@ -424,6 +424,20 @@
   const sync = () => { root.classList.toggle('has-cursor', mq.matches); if (!mq.matches) root.classList.remove('cursor-live'); };
   sync(); mq.addEventListener('change', sync);
 })();
+
+  /* G&M letter roll */
+  const gm = document.querySelector('.gm-roll');
+  if (gm) {
+    const t = gm.querySelector('.gm-roll__text'), ch = [...t.dataset.text], n = ch.length;
+    t.setAttribute('aria-hidden', 'true');
+    gm.setAttribute('aria-label', t.dataset.text);
+    t.innerHTML = ch.map((c, i) => `<span class="c"><i style="--i:${i};--o:${n - 1 - i}">${c === ' ' ? '&nbsp;' : c.replace('&', '&amp;')}</i></span>`).join('');
+    gm.addEventListener('pointerenter', e => { const b = gm.getBoundingClientRect(); gm.style.setProperty('--mx', (e.clientX - b.left) + 'px'); });
+    if (matchMedia('(hover: none)').matches && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver(es => { if (es[0].isIntersecting) { gm.classList.add('is-rolled'); setTimeout(() => gm.classList.remove('is-rolled'), 1600); io.disconnect(); } }, { threshold: .9 });
+      io.observe(gm);
+    }
+  }
 </script>
 <i id="nav-ready" hidden></i>
 </body>
