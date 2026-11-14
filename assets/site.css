@@ -329,6 +329,10 @@ ul {
   height: 48px;
   image-rendering: pixelated;
 }
+/* the monster gif has 8px of empty space under its feet: drop it onto the baseline */
+.gif-slot--low img {
+  translate: 0 8px;
+}
 .gif-slot--flip img {
   transform: scaleX(-1);
 }
@@ -360,6 +364,8 @@ html.vt-enter main > :nth-child(n+3) { animation-delay: .14s }
   overflow: hidden;
   vertical-align: top;
   white-space: nowrap;
+  padding: 0 .08em .2em;
+  margin: 0 -.08em -.2em;
 }
 .vt-w > span {
   display: inline-block;
@@ -507,11 +513,28 @@ main {
   justify-content: center;
   padding: clamp(1.5rem,1rem + 1.5vw,2.5rem);
 }
+.project-card__tag {
+  align-self: flex-start;
+  margin-bottom: .75rem;
+  padding: 4px 12px;
+  border: 1.5px solid rgba(255,255,255,.35);
+  border-radius: var(--r-pill);
+  color: var(--on-dark);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: .02em;
+}
 .project-card__name {
   font-size: var(--fs-h3);
   font-weight: 700;
   line-height: 1.05;
   letter-spacing: -.025em;
+}
+/* two-column cards on tablets leave a narrow text column: keep long names on two lines */
+@media (min-width:761px) and (max-width:1023px) {
+  .project-card__name {
+    font-size: 1.5rem;
+  }
 }
 .project-card__hook {
   margin-top: .5rem;
@@ -1530,7 +1553,7 @@ main {
 }
 .page-title-row {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 1rem;
 }
 .gm-roll {
